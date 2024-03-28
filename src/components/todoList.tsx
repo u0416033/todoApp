@@ -2,9 +2,10 @@ import TodoItem from "./todoItem";
 import styles from "./todolist.module.css";
 
 export default function TodoList({ todos, setTodos }: FormProps) {
+  const sortedTodos = todos.slice().sort((a, b) => Number(a.done) - Number(b.done));
   return (
     <div className={styles.list}>
-      {todos.map((todo, index) => (
+      {sortedTodos.map((todo, index) => (
         <TodoItem key={index} item={todo} todos={todos} setTodos={setTodos} />
       ))}{" "}
     </div>
@@ -12,6 +13,10 @@ export default function TodoList({ todos, setTodos }: FormProps) {
 }
 
 type FormProps = {
-  todos: string[];
-  setTodos: (todos: string[]) => void;
+  todos: Todo[];
+  setTodos: (todos: Todo[]) => void;
+};
+type Todo = {
+  name: string;
+  done: boolean;
 };
